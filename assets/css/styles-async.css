@@ -1,0 +1,387 @@
+   12. FEATURES (a experiência)
+--------------------------------------------------------------------- */
+.feature{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:var(--space-8) var(--space-6);box-shadow:var(--sh-xs);
+  transition:transform var(--t),box-shadow var(--t),border-color var(--t);
+  height:100%;
+}
+.feature:hover{transform:translateY(-6px);box-shadow:var(--sh-md);border-color:var(--green-200)}
+.feature__ico{
+  display:grid;place-items:center;width:60px;height:60px;border-radius:var(--r-md);
+  background:var(--green-100);color:var(--leaf-strong);margin-bottom:var(--space-5);
+}
+.feature--alt .feature__ico{background:var(--blue-100);color:var(--brand)}
+.feature--warm .feature__ico{background:#f6e3d2;color:var(--warm)}
+.feature__ico .ic{width:30px;height:30px}
+.feature h3{font-size:var(--fs-h4)}
+.feature p{margin-top:.5em;color:var(--text-2);font-size:var(--fs-sm)}
+
+/* ---------------------------------------------------------------------
+   13. CATEGORIAS (destaques do cardápio)
+--------------------------------------------------------------------- */
+.cat-rail{display:grid;gap:var(--gutter)}
+.cat{position:relative;display:block;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-sm);
+  transition:transform var(--t),box-shadow var(--t)}
+.cat:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
+.cat .plate{border-radius:0;aspect-ratio:3/4;box-shadow:none}
+.cat__body{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:var(--space-6);
+  background:linear-gradient(180deg,transparent,rgba(12,9,48,.82));color:#fff}
+.cat__body h3{color:#fff;font-size:var(--fs-h3)}
+.cat__body p{color:rgba(255,255,255,.82);font-size:var(--fs-sm);margin-top:.25em}
+.cat__count{display:inline-flex;align-items:center;gap:.4em;margin-top:.7em;font-weight:700;font-size:var(--fs-sm);color:var(--green-300)}
+.cat__count .ic{width:16px;height:16px;transition:transform var(--t)}
+.cat:hover .cat__count .ic{transform:translateX(4px)}
+@media (min-width:640px){.cat-rail{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.cat-rail{grid-template-columns:repeat(4,1fr)}}
+
+/* ---------------------------------------------------------------------
+   14. MENU (lista de pratos)
+--------------------------------------------------------------------- */
+.menu-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-2);
+  margin:var(--space-10) auto 0;max-width:760px}
+.menu-tab{
+  font-family:var(--font-display);font-weight:700;font-size:1rem;
+  min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+  padding:.5em 1.25em;border-radius:var(--r-pill);color:var(--text-2);
+  border:2px solid transparent;transition:all var(--t);
+}
+.menu-tab:hover{color:var(--leaf-strong);background:var(--green-50)}
+.menu-tab[aria-selected="true"]{background:var(--green-600);color:#fff;box-shadow:var(--sh-sm)}
+
+.menu-list{display:grid;gap:var(--space-5) clamp(28px,5vw,72px)}
+@media (min-width:820px){.menu-list--2{grid-template-columns:1fr 1fr}}
+.menu-item{display:grid;grid-template-columns:1fr auto;gap:.3em 1em;
+  padding-bottom:var(--space-4);border-bottom:1px dashed var(--border-strong);align-items:baseline}
+.menu-item__name{font-family:var(--font-display);font-weight:700;font-size:1.12rem;color:var(--text);
+  display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+.menu-item__price{font-family:var(--font-display);font-weight:800;font-size:1.12rem;color:var(--price);white-space:nowrap}
+.menu-item__desc{grid-column:1/2;color:var(--text-muted);font-size:var(--fs-sm);line-height:1.5}
+.menu-item__meta{grid-column:1/-1;display:flex;gap:.6em;margin-top:.2em;flex-wrap:wrap}
+.tag{display:inline-flex;align-items:center;gap:.35em;font-size:var(--fs-xs);font-weight:700;
+  padding:.18em .6em;border-radius:var(--r-pill);letter-spacing:.02em}
+.tag--star{background:var(--green-600);color:#fff}
+.tag--veg{background:var(--green-100);color:var(--green-700)}
+.tag--hot{background:#f6e3d2;color:var(--warm)}
+.tag--ice{background:var(--blue-100);color:var(--brand)}
+.tag--neutral{background:var(--sand-200);color:var(--text-2)}
+.tag .ic{width:13px;height:13px}
+
+/* fundo alternado entre blocos do cardápio */
+.section--alt{background:var(--bg-2)}
+/* preço com valor de casal (serve 2) */
+.menu-item__price{text-align:right;line-height:1.15}
+.menu-item__price small{display:block;font-family:var(--font-body);font-weight:600;
+  font-size:var(--fs-xs);color:var(--text-muted);letter-spacing:0;margin-top:.1em}
+/* subseção dentro de um bloco (ex.: Filhote / Pescada) */
+.menu-sub{font-family:var(--font-display);font-weight:700;font-size:var(--fs-h4);color:var(--brand);
+  margin:1.7em 0 .8em;display:flex;align-items:center;gap:.4em;
+  padding-bottom:.35em;border-bottom:2px solid var(--blue-100)}
+.menu-sub:first-of-type{margin-top:.2em}
+.menu-sub .ic{width:17px;height:17px;color:var(--leaf-strong)}
+.menu-cat-note{margin-top:1.3em;font-size:var(--fs-sm);color:var(--text-muted);font-style:italic}
+
+/* Bloco de seção do cardápio com moldura lateral */
+.menu-block{display:grid;gap:clamp(28px,4vw,56px);align-items:start}
+.menu-block__media{position:sticky;top:calc(var(--header-h) + 24px)}
+.menu-block__media .plate{aspect-ratio:4/5}
+.menu-block__head{display:flex;align-items:center;gap:.7em;margin-bottom:var(--space-6)}
+.menu-block__head .badge-ico{display:grid;place-items:center;width:48px;height:48px;border-radius:var(--r-md);
+  background:var(--green-100);color:var(--leaf-strong);flex:none}
+.menu-block__head .badge-ico .ic{width:26px;height:26px}
+.menu-block__head h2{font-size:var(--fs-h2)}
+.menu-block--rev .menu-block__media{order:2}
+@media (min-width:900px){
+  .menu-block{grid-template-columns:.8fr 1.2fr}
+  .menu-block--rev{grid-template-columns:1.2fr .8fr}
+}
+
+/* ---------------------------------------------------------------------
+   15. FAIXA ESCURA DE NÚMEROS / DIVISORES DE ONDA
+--------------------------------------------------------------------- */
+.wave-divider{display:block;width:100%;height:auto;color:var(--deep)}
+.wave-divider--up{transform:scaleY(-1)}
+.band-deep{position:relative;background:var(--deep);color:var(--on-deep);overflow:hidden}
+.band-deep__deco{position:absolute;inset:0;opacity:.10;color:var(--green-300)}
+.band-deep__deco .ic{position:absolute;width:320px;height:320px;stroke-width:.8}
+.band-deep__deco .a{right:-60px;top:-80px;transform:rotate(20deg)}
+.band-deep__deco .b{left:-70px;bottom:-90px;transform:rotate(-14deg);color:var(--blue-400)}
+.stats{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-10) var(--space-6);
+  text-align:center}
+.stat__ico{color:var(--green-300);margin-bottom:var(--space-3)}
+.stat__ico .ic{width:46px;height:46px;margin-inline:auto;stroke-width:1.5}
+.stat__num{font-family:var(--font-display);font-weight:800;font-size:clamp(2.2rem,1.6rem+2vw,3rem);color:#fff;line-height:1}
+.stat__label{color:var(--on-deep-muted);font-weight:600;margin-top:.4em}
+@media (min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}}
+
+/* ---------------------------------------------------------------------
+   16. DEPOIMENTOS
+--------------------------------------------------------------------- */
+.reviews__grid{display:grid;gap:clamp(28px,5vw,56px);align-items:center}
+.review-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);
+  padding:clamp(28px,4vw,48px);box-shadow:var(--sh-sm);position:relative;
+}
+.review-card .quote-mark{font-family:var(--font-display);font-size:5rem;line-height:.6;color:var(--green-200);
+  position:absolute;top:18px;left:24px;z-index:0}
+.review-card blockquote{position:relative;z-index:1;font-size:var(--fs-lead);color:var(--text);line-height:1.6}
+.review-card .stars{display:flex;gap:2px;color:var(--amber);margin-bottom:var(--space-4)}
+.review-card .stars .ic{width:18px;height:18px}
+.review-author{display:flex;align-items:center;gap:.8em;margin-top:var(--space-6)}
+.review-author .ava{width:48px;height:48px;border-radius:var(--r-pill);background:var(--blue-100);
+  display:grid;place-items:center;font-family:var(--font-display);font-weight:800;color:var(--brand);flex:none}
+.review-author b{display:block}
+.review-author small{color:var(--text-muted)}
+.reviews__media .plate{aspect-ratio:1/1}
+@media (min-width:920px){.reviews__grid{grid-template-columns:1.1fr .9fr}}
+
+/* ---------------------------------------------------------------------
+   17. COMO CHEGAR
+--------------------------------------------------------------------- */
+.howto__grid{display:grid;gap:clamp(28px,5vw,56px);align-items:center}
+.steps{display:grid;gap:var(--space-5);margin-top:1.6em}
+.step{display:flex;gap:var(--space-4);align-items:flex-start}
+.step__n{flex:none;width:42px;height:42px;border-radius:var(--r-pill);display:grid;place-items:center;
+  background:var(--blue-700);color:#fff;font-family:var(--font-display);font-weight:800}
+.step h3{font-size:var(--fs-h4)}
+.step p{color:var(--text-2);font-size:var(--fs-sm);margin-top:.2em}
+.howto__card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);
+  padding:clamp(24px,3vw,36px);box-shadow:var(--sh-md)}
+.howto__map{border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/11;margin-bottom:var(--space-6);
+  position:relative;background:linear-gradient(160deg,var(--blue-700),var(--blue-950))}
+.howto__map .scene{position:absolute;inset:0;color:#5e57c8;opacity:.7}
+.howto__map .pin{position:absolute;top:34%;left:60%;color:#fff;width:40px;height:40px;z-index:2;
+  filter:drop-shadow(0 6px 14px rgba(0,0,0,.4));animation:bob 2.6s ease-in-out infinite}
+.howto__info{display:grid;gap:var(--space-4)}
+.howto__info li{display:flex;gap:.8em;align-items:flex-start}
+.howto__info .ic{color:var(--leaf-strong);flex:none;margin-top:.15em}
+.howto__info b{display:block;color:var(--text)}
+.howto__info span{color:var(--text-2);font-size:var(--fs-sm)}
+@media (min-width:900px){.howto__grid{grid-template-columns:1fr 1fr}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+/* ---------------------------------------------------------------------
+   18. BLOG
+--------------------------------------------------------------------- */
+.post{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--sh-xs);transition:transform var(--t),box-shadow var(--t);height:100%;display:flex;flex-direction:column}
+.post:hover{transform:translateY(-6px);box-shadow:var(--sh-md)}
+.post .plate{aspect-ratio:16/10;border-radius:0}
+.post__body{padding:var(--space-6);display:flex;flex-direction:column;gap:.6em;flex:1}
+.post__meta{display:flex;gap:var(--space-4);color:var(--text-muted);font-size:var(--fs-xs);font-weight:600}
+.post__meta span{display:inline-flex;align-items:center;gap:.4em}
+.post__meta .ic{width:14px;height:14px;color:var(--leaf-strong)}
+.post h3{font-size:var(--fs-h4)}
+.post p{color:var(--text-2);font-size:var(--fs-sm)}
+.post .more{margin-top:auto;display:inline-flex;align-items:center;gap:.4em;font-weight:700;color:var(--leaf-strong)}
+.post .more .ic{width:16px;height:16px;transition:transform var(--t)}
+.post:hover .more .ic{transform:translateX(4px)}
+
+/* ---------------------------------------------------------------------
+   19. PARCEIROS
+--------------------------------------------------------------------- */
+.partners{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
+  gap:clamp(24px,5vw,64px)}
+.partner{font-family:var(--font-display);font-weight:800;font-size:clamp(1rem,.9rem+.6vw,1.4rem);
+  color:var(--text-2);letter-spacing:.04em;opacity:1;display:inline-flex;align-items:center;gap:.5em;
+  transition:color var(--t),opacity var(--t)}
+.partner .ic{width:26px;height:26px;stroke-width:1.6}
+.partner:hover{color:var(--brand);opacity:1}
+
+/* ---------------------------------------------------------------------
+   20. CTA — BORA PRA ILHA
+--------------------------------------------------------------------- */
+.cta-band{position:relative;background:linear-gradient(150deg,var(--green-700),var(--blue-900) 90%);
+  color:#fff;overflow:hidden}
+.cta-band__deco{position:absolute;inset:0;opacity:.14;color:#bff0d2}
+.cta-band__deco .ic{position:absolute;width:280px;height:280px;stroke-width:.8}
+.cta-band__deco .a{right:-40px;top:-70px;transform:rotate(16deg)}
+.cta-band__deco .b{left:-50px;bottom:-80px;width:220px;height:220px;transform:rotate(-18deg)}
+.cta-band__inner{position:relative;display:grid;gap:var(--space-8);align-items:center;text-align:center}
+.cta-band h2{color:#fff;font-size:var(--fs-h2)}
+.cta-band p{color:rgba(255,255,255,.85);max-width:52ch;margin-inline:auto}
+.cta-band .btn--outline{--btn-fg:#fff;--btn-bd:rgba(255,255,255,.55)}
+.cta-band .btn--outline:hover{--btn-bg:#fff;--btn-fg:var(--green-700);--btn-bd:#fff}
+@media (min-width:840px){
+  .cta-band__inner{grid-template-columns:1.4fr auto;text-align:left}
+  .cta-band p{margin-inline:0}
+  .cta-band .btn-row{justify-content:flex-end}
+}
+
+/* ---------------------------------------------------------------------
+   21. FOOTER
+--------------------------------------------------------------------- */
+.site-footer{background:var(--deep-2);color:var(--on-deep-muted);position:relative}
+.footer__top{display:grid;gap:clamp(32px,5vw,56px);padding-block:clamp(56px,7vw,88px)}
+.footer__brand img{height:42px;width:auto}
+.footer__brand p{margin-top:var(--space-5);max-width:34ch;line-height:1.7}
+.footer__hours{display:flex;align-items:center;gap:.8em;margin-top:var(--space-6);
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r-md);padding:var(--space-4) var(--space-5)}
+.footer__hours .ring{display:grid;place-items:center;width:44px;height:44px;border-radius:var(--r-md);
+  background:var(--green-600);color:#fff;flex:none}
+.footer__hours b{display:block;color:#fff;font-family:var(--font-display)}
+.footer__hours small{color:var(--on-deep-muted)}
+.footer__col h4,.footer__col .h4{color:#fff;font-size:1rem;margin-bottom:var(--space-5);letter-spacing:.02em}
+.footer__col ul{display:grid;gap:var(--space-3)}
+.footer__col a{color:var(--on-deep-muted);transition:color var(--t);display:inline-flex;align-items:center;gap:.5em}
+.footer__col a:hover{color:var(--green-300)}
+.footer__col a .ic{width:16px;height:16px;color:var(--green-400)}
+.footer__social{display:flex;gap:var(--space-3);margin-top:var(--space-2)}
+.footer__social a{display:grid;place-items:center;width:44px;height:44px;border-radius:var(--r-md);
+  background:rgba(255,255,255,.06);color:#fff;transition:background var(--t),transform var(--t)}
+.footer__social a:hover{background:var(--green-600);transform:translateY(-3px)}
+.footer__social .ic{width:20px;height:20px}
+.footer__bar{border-top:1px solid rgba(255,255,255,.08);padding-block:var(--space-6);
+  display:flex;flex-wrap:wrap;gap:var(--space-4);justify-content:space-between;align-items:center;
+  font-size:var(--fs-sm)}
+.footer__bar a:hover{color:var(--green-300)}
+.footer__bar .legal{display:flex;flex-wrap:wrap;gap:var(--space-5)}
+@media (min-width:760px){.footer__top{grid-template-columns:1.6fr 1fr 1fr}}
+@media (min-width:1040px){.footer__top{grid-template-columns:2fr 1fr 1fr 1.3fr}}
+
+/* ---------------------------------------------------------------------
+   22. PÁGINA 404
+--------------------------------------------------------------------- */
+.notfound{text-align:center;padding-block:clamp(56px,9vw,120px);position:relative;overflow:hidden}
+.notfound__big{font-family:var(--font-display);font-weight:800;font-size:clamp(6rem,18vw,13rem);
+  line-height:.85;color:var(--green-600);position:relative;display:inline-block}
+.notfound__big::after{content:"";position:absolute;left:50%;bottom:-6px;width:60%;height:.12em;
+  background:var(--green-200);border-radius:99px;transform:translateX(-50%)}
+.notfound h1{font-size:var(--fs-h2);margin-top:var(--space-6)}
+.notfound p{color:var(--text-2);margin-top:var(--space-4);max-width:46ch;margin-inline:auto}
+.notfound .btn-row{justify-content:center;margin-top:var(--space-8)}
+.notfound__leaf{position:absolute;color:var(--green-200);opacity:.6;z-index:-1}
+.notfound__leaf.a{top:8%;left:8%;width:90px;height:90px;transform:rotate(-20deg)}
+.notfound__leaf.b{bottom:12%;right:9%;width:120px;height:120px;color:var(--sand-300);transform:rotate(18deg)}
+
+/* ---------------------------------------------------------------------
+   23. REVEAL ON SCROLL
+--------------------------------------------------------------------- */
+/* Animacoes de entrada so com JS. Sem .js tudo ja e visivel
+   -> evita conteudo invisivel pra sempre e nao atrasa o LCP do topo. */
+.js [data-reveal]{opacity:0;transform:translateY(22px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.22,.61,.36,1)}
+.js [data-reveal].is-in{opacity:1;transform:none}
+.js [data-reveal][data-delay="1"]{transition-delay:.08s}
+.js [data-reveal][data-delay="2"]{transition-delay:.16s}
+.js [data-reveal][data-delay="3"]{transition-delay:.24s}
+.js [data-reveal][data-delay="4"]{transition-delay:.32s}
+
+/* ---------------------------------------------------------------------
+   24. PREFERS-REDUCED-MOTION
+--------------------------------------------------------------------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .js [data-reveal]{opacity:1;transform:none}
+}
+
+/* =====================================================================
+   25. ENDURECIMENTO RESPONSIVO (mobile-first, anti-overflow, alvos de toque)
+   ===================================================================== */
+@media (max-width:979px){
+  .hero__art{min-height:0;margin-top:var(--space-2)}
+  .hero__blob{max-width:440px;margin-inline:auto;aspect-ratio:1/1}
+  .hero__badge{padding:.7em .9em}
+  .hero__badge--rating{left:2%;bottom:4%}
+  .hero__badge--cross{right:2%;top:4%}
+  .hero__badge strong{font-size:1rem}
+}
+@media (max-width:400px){
+  .hero__badge--cross{display:none}
+  .hero__badge--rating{left:0;bottom:0}
+  .hero__leaf{display:none}
+}
+@media (max-width:899px){
+  .about__media{max-width:520px;margin-inline:auto}
+  .about__stamp{left:0;top:-3%;width:88px;height:88px;font-size:.95rem}
+  .about__media .plate--b{right:0;bottom:-8%;width:42%}
+}
+@media (max-width:919px){
+  .reviews__media,.about__media{width:100%}
+  .reviews__media .plate{max-width:420px;margin-inline:auto}
+}
+@media (max-width:380px){
+  .menu-item{grid-template-columns:1fr;gap:.15em}
+  .menu-item__price{text-align:left}
+  .menu-item__price small{display:inline;margin-left:.4em}
+}
+@media (max-width:759px){
+  .footer__col li a{padding-block:.2em}
+  .footer__bar{justify-content:center;text-align:center}
+  .footer__bar .legal{justify-content:center}
+}
+img{height:auto;max-width:100%}
+.menu-item__name,.lead,p,h1,h2,h3,blockquote{overflow-wrap:break-word}
+
+/* =====================================================================
+   26. REFINO MOBILE / TABLET — menos densidade, mais respiro e foco
+   "Direto ao ponto": tiles mais baixos, menos enfeite decorativo,
+   ritmo vertical mais enxuto. Desktop permanece intacto.
+   ===================================================================== */
+
+/* Ritmo vertical mais enxuto em tablet e celular */
+@media (max-width:1000px){
+  :root{ --section-y:clamp(46px,6vw,66px); }
+  .section--tight{ padding-block:clamp(40px,5.5vw,56px); }
+  .cat .plate{ aspect-ratio:4/3; }            /* tiles de categoria mais baixos no tablet */
+  .hero__blob{ max-width:360px; }             /* blob do hero deixa de dominar a dobra */
+  .about__media{ max-width:420px; }           /* prato do "sobre" menor, menos vazio */
+  .reviews__media .plate{ max-width:360px; }
+  .hero__art{ min-height:0; }
+}
+@media (max-width:760px){
+  :root{ --section-y:clamp(44px,7vw,56px); }
+  body{ line-height:1.6; }
+  .hero__grid{ gap:var(--space-5); }
+  .about__grid,.reviews__grid,.howto__grid{ gap:var(--space-8); }
+}
+
+/* HERO mais leve no celular: blob menor + margens internas menores */
+@media (max-width:760px){
+  .hero{ padding-top:var(--space-5); }
+  .hero__copy .lead{ margin-top:.85em; }
+  .hero__copy .btn-row{ margin-top:1.35em; }
+  .hero__meta{ margin-top:1.5em; gap:var(--space-4) var(--space-6); }
+  .hero__blob{ max-width:320px; }
+}
+
+/* EXPERIÊNCIA: cards mais compactos; 2 colunas a partir de ~520px */
+@media (max-width:760px){
+  .feature{ padding:var(--space-6) var(--space-5); }
+  .feature__ico{ width:46px;height:46px;margin-bottom:var(--space-3); }
+  .feature__ico .ic{ width:24px;height:24px; }
+  .feature p{ margin-top:.35em; }
+}
+@media (min-width:520px) and (max-width:759px){
+  .grid--2.grid--3{ grid-template-columns:1fr 1fr; }
+}
+
+/* CATEGORIAS: no celular viram tiles 2-col, quadrados e diretos (sem descrição) */
+@media (max-width:639px){
+  .cat-rail{ grid-template-columns:1fr 1fr; gap:var(--space-4); }
+  .cat .plate{ aspect-ratio:1/1; }
+  .cat__body{ padding:var(--space-4); }
+  .cat__body h3{ font-size:var(--fs-h4); }
+  .cat__body p{ display:none; }               /* menos ruído: título + "Ver itens" basta */
+  .cat__count{ margin-top:.45em; }
+}
+
+/* SOBRE: remove o prato decorativo secundário no celular (menos sobreposição) */
+@media (max-width:519px){
+  .about__media .plate--b{ display:none; }
+  .about__media .plate--round{ border-radius:var(--blob-2); }
+}
+
+/* DEPOIMENTOS: o prato é só enfeite — some no celular pra dar foco ao texto */
+@media (max-width:639px){
+  .reviews__media{ display:none; }
+}
+
+/* Respiros menores em parceiros e prévia do cardápio */
+@media (max-width:760px){
+  .partners{ gap:var(--space-5) clamp(20px,6vw,40px); }
+  .menu-tabs{ margin-top:var(--space-6); }
+}

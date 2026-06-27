@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Rusty na Ilha">
+  <rect width="64" height="64" rx="15" fill="#23158E"/>
+  <g fill="none" stroke="#FBF7EE" stroke-width="4.4" stroke-linecap="round">
+    <path d="M11 40c4-5 7.5-5 11.5 0s7.5 5 11.5 0 7.5-5 11.5 0"/>
+    <path d="M11 51c4-5 7.5-5 11.5 0s7.5 5 11.5 0 7.5-5 11.5 0"/>
+  </g>
+  <path d="M40 12c8 1.5 11.5 8 9.5 17.5C42 31 36.5 25 38 13.5" fill="#2F8C53"/>
+  <path d="M40 14.5c2.5 3 4.8 6.4 6.4 11" fill="none" stroke="#E9F5EC" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
