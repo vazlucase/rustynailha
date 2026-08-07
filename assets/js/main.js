@@ -100,6 +100,28 @@
   /* ---------- 4. Ano dinâmico no rodapé ---------- */
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
 
+  /* ---------- 4b. Botão "voltar ao topo" (leve, acessível) ---------- */
+  const toTop = (() => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "to-top";
+    btn.setAttribute("aria-label", "Voltar ao topo");
+    btn.appendChild(icon("chevron-right"));
+    btn.style.display = "none";                      // só renderiza quando precisar
+    document.body.appendChild(btn);
+    return btn;
+  })();
+  if (toTop && !prefersReduced) {
+    const onScrollTop = () => {
+      const show = (window.scrollY || document.documentElement.scrollTop) > 520;
+      toTop.classList.toggle("show", show);
+      toTop.style.display = show ? "grid" : "none";
+    };
+    onScrollTop();
+    window.addEventListener("scroll", onScrollTop, { passive: true });
+    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  }
+
   /* ---------- 5. Cardápio (render a partir de RUSTY_MENU) ---------- */
   const MENU = Array.isArray(window.RUSTY_MENU) ? window.RUSTY_MENU : [];
   const BY_ID = {};

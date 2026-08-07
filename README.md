@@ -58,9 +58,9 @@ No Netlify, o `404.html` já vira a página de erro automaticamente. Na Vercel t
      <div class="plate" style="--photo:url('assets/img/filhote.jpg')"></div>
      ```
    - Em produção/Next.js, prefira `next/image` para otimização.
-3. **Domínio real** — troque `https://rustynailha.com.br/` em: `index.html` e `cardapio.html` (tags `canonical`, `og:url`, `og:image`, `twitter:image`), `sitemap.xml` e `robots.txt`.
+3. ~~**Domínio real**~~ ✅ já está aplicado — `https://rustynailha.com.br/` em canonicais, `og:`, `sitemap.xml` e `robots.txt`.
 4. **Coordenadas (opcional)** — o `geo` no JSON-LD da home (`index.html`) é aproximado da Ilha das Onças. Ajuste `latitude`/`longitude` para o ponto exato, se quiser.
-5. **Confira os dados** — telefone `(91) 99316-1815`, endereço de embarque (Porto Shalom, Rua Siqueira Mendes, 160 — Cidade Velha), horários (Sex–Dom, 10h–18h) e redes (`@rustynailha`, Facebook). Estão preenchidos com base em pesquisa pública; valide.
+5. **Confira os dados** — telefone `(91) 99316-1815`, endereço de embarque (Porto Shalom, Rua Siqueira Mendes, 160 — Cidade Velha), horários (**Sáb e Dom**, 10h–18h, mais feriados escolhidos) e redes (`@rustynailha`, Facebook). Estão preenchidos com base em pesquisa pública; valide.
 
 ---
 

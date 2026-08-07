@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Rusty na Ilha — Painel</title>
+  <meta name="color-scheme" content="light">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <!-- ================= LOGIN ================= -->
+  <section class="login-shell" id="view-login" hidden>
+    <form class="login-card" id="login-form" novalidate>
+      <p class="brand">Rusty na Ilha</p>
+      <h1>Painel administrativo</h1>
+      <p class="muted" style="font-size:.9rem;margin-bottom:var(--space-5)">
+        Acesso restrito. Entre com seu usuário e senha.
+      </p>
+
+      <div class="field">
+        <label for="login-user">Usuário</label>
+        <input id="login-user" name="username" type="text" autocomplete="username" required autofocus>
+      </div>
+      <div class="field">
+        <label for="login-pass">Senha</label>
+        <input id="login-pass" name="password" type="password" autocomplete="current-password" required>
+      </div>
+
+      <div class="alert alert--err" id="login-error" hidden></div>
+
+      <button class="btn btn--primary btn--block" type="submit" id="login-submit">
+        Entrar
+      </button>
+
+      <p class="login-foot"><a href="/">Voltar ao site</a></p>
+    </form>
+  </section>
+
+  <!-- ================= PAINEL ================= -->
+  <div id="view-dash" hidden>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <span class="topbar__brand">Rusty na Ilha<small>painel administrativo</small></span>
+        <div class="topbar__spacer"></div>
+        <span class="topbar__user" id="dash-user"></span>
+        <div class="topbar__actions">
+          <a class="btn btn--ghost btn--sm" href="/">Ver site</a>
+          <button class="btn btn--ghost btn--sm" type="button" id="btn-logout">Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+
+      <nav class="tabs" id="tabs" role="tablist" aria-label="Seções do painel">
+        <button class="tab is-active" role="tab" aria-selected="true" data-tab="reservas">Reservas</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="calendario">Calendário</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="ajustes">Ajustes</button>
+      </nav>
+
+      <div id="tab-error" class="alert alert--err" hidden></div>
+
+      <!-- ========== ABA: RESERVAS ========== -->
+      <section id="panel-reservas" class="tab-panel" role="tabpanel" aria-label="Reservas">
+        <div class="summary">
+          <div class="stat stat--pending"><b id="sum-pending">—</b><span>Pendentes</span></div>
+          <div class="stat stat--confirmed"><b id="sum-confirmed">—</b><span>Confirmadas</span></div>
+          <div class="stat stat--checked_in"><b id="sum-checked_in">—</b><span>Check-in</span></div>
+          <div class="stat stat--cancelled"><b id="sum-cancelled">—</b><span>Canceladas</span></div>
+        </div>
+
+        <div class="card">
+          <div class="filters">
+            <div class="field field--sm" style="margin:0">
+              <label for="f-status">Status</label>
+              <select id="f-status">
+                <option value="">Todos</option>
+                <option value="pending">Pendente</option>
+                <option value="confirmed">Confirmada</option>
+                <option value="checked_in">Check-in</option>
+                <option value="cancelled">Cancelada</option>
+              </select>
+            </div>
+            <div class="field field--grow" style="margin:0">
+              <label for="f-search">Buscar</label>
+              <input id="f-search" type="search" placeholder="Nome, telefone ou e-mail">
+            </div>
+            <button class="btn btn--primary" type="button" id="btn-refresh">Atualizar</button>
+          </div>
+
+          <div class="table-wrap">
+            <table id="rsv-table">
+              <thead>
+                <tr>
+                  <th>Quando</th><th>Cliente</th><th>Pessoas</th><th>Status</th><th>Observações</th><th style="text-align:right">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="rsv-body">
+                <tr><td colspan="6" class="empty">Carregando reservas…</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pager" id="pager" hidden>
+            <span id="pager-info"></span>
+            <div class="pager__btns">
+              <button class="btn btn--outline btn--sm" type="button" id="pg-prev">← Anterior</button>
+              <button class="btn btn--outline btn--sm" type="button" id="pg-next">Próxima →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== ABA: CALENDÁRIO ========== -->
+      <section id="panel-calendario" class="tab-panel" role="tabpanel" aria-label="Calendário" hidden>
+        <div class="card">
+          <div class="cal-head">
+            <h3 class="mb-0">Disponibilidade por dia</h3>
+            <span class="muted" style="font-size:.85rem">Toque num dia para abrir/fechar, ajustar capacidade ou marcar feriado.</span>
+            <div class="cal-nav">
+              <button class="btn btn--outline btn--sm" type="button" id="cal-prev">←</button>
+              <span class="month-label" id="cal-month"></span>
+              <button class="btn btn--outline btn--sm" type="button" id="cal-next">→</button>
+              <button class="btn btn--outline btn--sm" type="button" id="cal-today">Hoje</button>
+            </div>
+          </div>
+          <div class="cal" id="cal-grid"></div>
+          <p class="muted mt-4" style="font-size:.85rem">
+            <b>Dias padrão de funcionamento:</b> <span id="cal-defaults"></span>
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== ABA: AJUSTES ========== -->
+      <section id="panel-ajustes" class="tab-panel" role="tabpanel" aria-label="Ajustes" hidden>
+        <div class="card">
+          <h3>Funcionamento padrão</h3>
+          <p class="card__sub">Quais dias da semana aceitam reservas por padrão. Exceções (feriados, fechamentos) são feitas no calendário.</p>
+
+          <div class="field">
+            <label>Dias de funcionamento</label>
+            <div class="days-toggles" id="days-toggle"></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="set-max">Capacidade máxima por dia (pessoas)</label>
+              <input id="set-max" type="number" min="1" max="500">
+            </div>
+            <div class="field">
+              <label for="set-window">Janela de reserva (dias)</label>
+              <input id="set-window" type="number" min="1" max="365">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Horários oferecidos</label>
+            <div class="slots-editor" id="slots-editor"></div>
+            <div class="slots-add">
+              <input id="slot-new" type="text" placeholder="18:30" aria-label="Novo horário" maxlength="5">
+              <button class="btn btn--outline btn--sm" type="button" id="btn-slot-add">Adicionar horário</button>
+            </div>
+          </div>
+
+          <button class="btn btn--green mt-4" type="button" id="btn-save-settings">Salvar ajustes</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================= EDITOR DE DIA (dialog) ================= -->
+  <dialog id="day-dialog">
+    <form class="dialog__body" id="day-form" novalidate>
+      <div class="dialog__title">
+        <h3 id="day-title" class="mb-0">Dia</h3>
+        <button class="dialog__close" type="button" id="day-close" aria-label="Fechar">×</button>
+      </div>
+
+      <div class="field">
+        <label>Status do dia</label>
+        <select id="day-open">
+          <option value="default">Padrão da semana</option>
+          <option value="open">Aberto (forçar)</option>
+          <option value="closed">Fechado (forçar)</option>
+        </select>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="day-max">Capacidade (pessoas)</label>
+          <input id="day-max" type="number" min="1" max="500" placeholder="Padrão">
+        </div>
+        <div class="field">
+          <label class="muted" style="font-size:.8rem">&nbsp;</label>
+          <label class="day-toggle-check" style="display:flex;align-items:center;gap:.5em;font-size:.85rem;font-weight:600">
+            <input type="checkbox" id="day-holiday" style="width:auto"> É feriado
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="day-note">Observação (mostrada aos clientes)</label>
+        <input id="day-note" type="text" maxlength="200" placeholder="Ex.: feriado, capacidade reduzida…">
+      </div>
+
+      <div class="dialog__actions">
+        <button class="btn btn--danger btn--sm" type="button" id="day-reset">Remover exceção</button>
+        <button class="btn btn--green" type="submit" id="day-save">Salvar dia</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="admin.js" defer></script>
+</body>
+</html>

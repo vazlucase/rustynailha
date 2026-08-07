@@ -1,5 +1,4 @@
 # Rusty na Ilha — robots.txt
-# ⚠️ Troque o domínio abaixo pelo domínio real antes de publicar.
 User-agent: *
 Allow: /
 

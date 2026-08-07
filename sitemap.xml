@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ⚠️ Troque https://rustynailha.com.br/ pelo domínio real antes de publicar. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rustynailha.com.br/</loc>
@@ -10,5 +9,40 @@
     <loc>https://rustynailha.com.br/cardapio.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rustynailha.com.br/reservas.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rustynailha.com.br/blog.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rustynailha.com.br/blog/nosso-acai-do-quintal.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rustynailha.com.br/blog/como-chegar-de-barco.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rustynailha.com.br/blog/feriados-e-funcionamento.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rustynailha.com.br/blog/receita-pato-no-tucupi.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rustynailha.com.br/blog/por-do-sol-na-ilha.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
