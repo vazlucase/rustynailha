@@ -5,7 +5,7 @@
    ============================================================= */
 const crypto = require("crypto");
 const { sql, ensureSchema } = require("./_lib/db");
-const { ok, fail, allowedOrigin } = require("./_lib/http");
+const { ok, fail, allowedOrigin, readJsonBody } = require("./_lib/http");
 const { getSettings } = require("./_lib/settings");
 const { localToday, addDays } = require("./_lib/availability");
 const { validateReservationInput } = require("./_lib/validate");
@@ -16,8 +16,8 @@ async function handler(req, res) {
   if (req.method !== "POST") return fail(res, "method", "Método não permitido.", 405);
   if (!allowedOrigin(req)) return fail(res, "csrf", "Origem não autorizada.", 403);
 
-  let body = {};
-  try { body = req.body || {}; } catch { return fail(res, "bad_request", "Corpo inválido."); }
+  const body = await readJsonBody(req);
+  if (!body) return fail(res, "bad_request", "Corpo inválido.");
 
   const { errors, clean, valid } = validateReservationInput(body);
   if (!valid) return fail(res, "validation", "Verifique os campos.", 422, errors);

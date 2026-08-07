@@ -4,7 +4,7 @@
    Mensagem genérica de erro; tempo uniforme mesmo p/ user inexistente.
    ============================================================= */
 const { sql, ensureSchema } = require("../_lib/db");
-const { ok, fail, allowedOrigin } = require("../_lib/http");
+const { ok, fail, allowedOrigin, readJsonBody } = require("../_lib/http");
 const { getSettings } = require("../_lib/settings");
 const {
   verifyPassword, DUMMY, createSession, sessionCookie,
@@ -19,8 +19,9 @@ async function handler(req, res) {
   if (req.method !== "POST") return fail(res, "method", "Método não permitido.", 405);
   if (!allowedOrigin(req)) return fail(res, "csrf", "Origem não autorizada.", 403);
 
-  let { username, password } = {};
-  try { ({ username, password } = req.body || {}); } catch { /* abaixo */ }
+  const body = await readJsonBody(req);
+  if (!body) return fail(res, "bad_request", "Credenciais inválidas.", 400);
+  const { username, password } = body;
   if (typeof username !== "string" || typeof password !== "string" || !username || !password) {
     return fail(res, "auth", "Credenciais inválidas.", 400);
   }

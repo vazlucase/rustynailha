@@ -6,7 +6,7 @@
      DELETE ?date     → remove override (volta ao padrão da semana)
    ============================================================= */
 const { sql, ensureSchema } = require("../_lib/db");
-const { ok, fail, allowedOrigin } = require("../_lib/http");
+const { ok, fail, allowedOrigin, readJsonBody } = require("../_lib/http");
 const { requireAdmin } = require("../_lib/auth");
 const { getSettings } = require("../_lib/settings");
 
@@ -49,8 +49,8 @@ async function handler(req, res) {
 
   // ---------- PUT: upsert override ----------
   if (req.method === "PUT") {
-    let body = {};
-    try { body = req.body || {}; } catch { return fail(res, "bad_request", "Corpo inválido."); }
+    const body = await readJsonBody(req);
+    if (!body) return fail(res, "bad_request", "Corpo inválido.");
     if (!isDate(body.date)) return fail(res, "validation", "Data inválida.", 422);
 
     let open = body.open;

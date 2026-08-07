@@ -6,7 +6,7 @@
    Nunca confia em campos fora de uma allow-list (anti mass-assignment).
    ============================================================= */
 const { sql, ensureSchema } = require("../../_lib/db");
-const { ok, fail, allowedOrigin } = require("../../_lib/http");
+const { ok, fail, allowedOrigin, readJsonBody } = require("../../_lib/http");
 const { requireAdmin } = require("../../_lib/auth");
 
 const STATUSES = ["pending", "confirmed", "checked_in", "cancelled"];
@@ -25,8 +25,8 @@ async function handler(req, res) {
 
   if (req.method === "PATCH") {
     if (!allowedOrigin(req)) return fail(res, "csrf", "Origem não autorizada.", 403);
-    let patch = {};
-    try { patch = req.body || {}; } catch { return fail(res, "bad_request", "Corpo inválido."); }
+    const patch = await readJsonBody(req);
+    if (!patch) return fail(res, "bad_request", "Corpo inválido.");
 
     const sets = [];
     const params = [];

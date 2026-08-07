@@ -16,6 +16,32 @@ function fail(res, code, message, status = 400, details) {
   res.end(JSON.stringify(body));
 }
 
+const MAX_BODY = 1_048_576; // 1 MB
+
+/**
+ * Lê o corpo da requisição como JSON na Vercel (Node serverless, sem Express
+ * → req.body chega undefined). Falha seguro: corpo vazio → {}; JSON inválido
+ * ou estouro de tamanho → null (chamador trata como 4xx).
+ */
+async function readJsonBody(req, maxBytes = MAX_BODY) {
+  return new Promise((resolve) => {
+    let size = 0;
+    const chunks = [];
+    req.on("data", (c) => {
+      size += c.length;
+      if (size > maxBytes) { req.destroy(); return; }
+      chunks.push(c);
+    });
+    req.on("end", () => {
+      if (req.destroyed) return resolve(null);
+      const raw = Buffer.concat(chunks).toString("utf8");
+      if (!raw.trim()) return resolve({});
+      try { resolve(JSON.parse(raw)); } catch { resolve(null); }
+    });
+    req.on("error", () => resolve(null));
+  });
+}
+
 /**
  * Bloqueia Cross-Site Request Forgery para mutações com cookie de sessão.
  * Compara o HOST do Origin com o host do site (SITE_URL ou Host da própria
@@ -37,4 +63,4 @@ function allowedOrigin(req, envOrigin = process.env.SITE_URL) {
   }
 }
 
-module.exports = { ok, fail, allowedOrigin };
+module.exports = { ok, fail, allowedOrigin, readJsonBody };

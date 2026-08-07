@@ -5,7 +5,7 @@
      PUT → atualiza somente os campos permitidos (allow-list)
    ============================================================= */
 const { ensureSchema } = require("../_lib/db");
-const { ok, fail, allowedOrigin } = require("../_lib/http");
+const { ok, fail, allowedOrigin, readJsonBody } = require("../_lib/http");
 const { requireAdmin } = require("../_lib/auth");
 const { getSettings, setSettings, DEFAULTS } = require("../_lib/settings");
 
@@ -51,8 +51,8 @@ async function handler(req, res) {
 
   if (req.method === "PUT") {
     if (!allowedOrigin(req)) return fail(res, "csrf", "Origem não autorizada.", 403);
-    let body = {};
-    try { body = req.body || {}; } catch { return fail(res, "bad_request", "Corpo inválido."); }
+    const body = await readJsonBody(req);
+    if (!body) return fail(res, "bad_request", "Corpo inválido.");
     const clean = sanitize(body);
     if (!Object.keys(clean).length) return fail(res, "validation", "Nada para atualizar.", 422);
     await setSettings(clean);
